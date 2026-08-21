@@ -46,6 +46,28 @@ class DB {
         }
     }
 
+    public function update($table, $id, $data) {
+        if ($table === 'users') {
+            $stmt = $this->pdo->prepare("UPDATE users SET name = ?, email = ? WHERE id = ?");
+            return $stmt->execute([$data['name'], $data['email'], $id]);
+        }
+
+        if ($table === 'employees') {
+            $stmt = $this->pdo->prepare("UPDATE employees SET name = ?, position = ?, salary = ? WHERE id = ?");
+            return $stmt->execute([$data['name'], $data['position'], $data['salary'], $id]);
+        }
+
+        if ($table === 'departments') {
+            $stmt = $this->pdo->prepare("UPDATE departments SET name = ? WHERE id = ?");
+            return $stmt->execute([$data['name'], $id]);
+        }
+
+        if ($table === 'projects') {
+            $stmt = $this->pdo->prepare("UPDATE projects SET title = ?, budget = ? WHERE id = ?");
+            return $stmt->execute([$data['title'], $data['budget'], $id]);
+        }
+    }
+
     public function delete($table, $id) {
         $stmt = $this->pdo->prepare("DELETE FROM $table WHERE id = ?");
         return $stmt->execute([$id]);

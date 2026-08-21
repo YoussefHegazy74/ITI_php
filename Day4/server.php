@@ -64,6 +64,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: index.php?tab=projects");
         exit();
     }
+
+    if (isset($_POST['update_user'])) {
+        $db->update('users', $_POST['id'], [
+            'name' => $_POST['name'],
+            'email' => $_POST['email']
+        ]);
+        header("Location: index.php?tab=users");
+        exit();
+    }
+
+    if (isset($_POST['update_employee'])) {
+        $db->update('employees', $_POST['id'], [
+            'name' => $_POST['name'],
+            'position' => $_POST['position'],
+            'salary' => $_POST['salary']
+        ]);
+        header("Location: index.php?tab=employees");
+        exit();
+    }
+
+    if (isset($_POST['update_department'])) {
+        $db->update('departments', $_POST['id'], [
+            'name' => $_POST['name']
+        ]);
+        header("Location: index.php?tab=departments");
+        exit();
+    }
+
+    if (isset($_POST['update_project'])) {
+        $db->update('projects', $_POST['id'], [
+            'title' => $_POST['title'],
+            'budget' => $_POST['budget']
+        ]);
+        header("Location: index.php?tab=projects");
+        exit();
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
